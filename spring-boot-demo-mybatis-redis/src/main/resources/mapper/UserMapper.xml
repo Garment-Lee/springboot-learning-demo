@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ligf.springboot.dao.UserDao">
+
+	<resultMap type="com.ligf.springboot.domain.User" id="BaseResultMap">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="sex" property="sex"/>
+		<result column="age" property="age"/>
+		<result column="phone_num" property="phoneNum"/>
+	</resultMap>
+	
+	<parameterMap type="com.ligf.springboot.domain.User" id="User"></parameterMap>
+
+	<sql id="BaseColumnList">
+	id, name, age, sex, phone_num
+	</sql>
+	
+	<select id="selectAllUser" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList"></include>
+		from
+		tb_user
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
+		insert into tb_user(name, age, sex, phone_num)
+		values(#{name}, #{age}, #{sex}, #{phoneNum})
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		update tb_user
+		set
+		name = #{name},
+		age = #{age},
+		sex = #{sex},
+		phone_num = #{phoneNum}
+		where 
+		id = #{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="java.lang.Integer">
+		delete from tb_user
+		where 
+		id = #{id}
+	</delete>
+	
+</mapper>
